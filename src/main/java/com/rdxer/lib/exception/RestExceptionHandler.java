@@ -23,7 +23,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({InvalidRequestException.class})
     public ResponseEntity<Object> handleInvalidRequest(RuntimeException e, WebRequest request) {
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
         InvalidRequestException ire = (InvalidRequestException) e;
 
         List<FieldErrorResource> errorResources = ire.getErrors().getFieldErrors().stream().map(fieldError ->
