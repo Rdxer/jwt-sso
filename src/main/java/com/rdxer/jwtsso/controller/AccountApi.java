@@ -12,8 +12,9 @@ import javax.annotation.Resource;
 public class AccountApi {
     @Resource
     AccountServer accountServer;
+
     @GetMapping("/")
-    Object index(){
+    Object index() {
         return accountServer.findAll();
     }
 }

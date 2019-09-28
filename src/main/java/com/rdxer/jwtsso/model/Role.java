@@ -8,23 +8,19 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
 
-
 /**
- * 账户表
+ * 角色表
  */
 @Entity
 @Data
-public class Account {
+public class Role {
     @Id
     @GeneratedValue
     private Long id;
-    private String username;
-    private String password;
 
-    @ManyToMany
-    private List<Role> roles;
+    private String name;
 
-    @ManyToMany
-    private List<Permission> permissions;
+    @ManyToMany(mappedBy = "roles")
+    private List<Account> accounts;
 
 }

@@ -11,8 +11,9 @@ import javax.annotation.Resource;
 public class AuthApi {
     @Resource
     AccountServer accountServer;
+
     @GetMapping("/login")
-    Object login(){
+    Object login() {
         return accountServer.findAll();
     }
 }
