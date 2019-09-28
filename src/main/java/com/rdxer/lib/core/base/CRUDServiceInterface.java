@@ -1,5 +1,6 @@
 package com.rdxer.lib.core.base;
 
+import com.rdxer.lib.core.util.CRUDUtlis;
 import com.rdxer.lib.exception.exceptions.NotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -39,6 +40,14 @@ public interface CRUDServiceInterface<T, ID extends Serializable> {
 
     default List<T> getAll(){
         return getRepository().findAll();
+    }
+
+    default ID modelGetId(T model) {
+        return CRUDUtlis.getId(model);
+    }
+
+    default void modelSetId(ID id, T model) {
+        CRUDUtlis.setId(id,model);
     }
 }
 

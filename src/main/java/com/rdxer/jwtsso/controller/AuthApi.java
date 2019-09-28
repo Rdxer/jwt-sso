@@ -14,6 +14,6 @@ public class AuthApi {
 
     @GetMapping("/login")
     Object login() {
-        return accountServer.findAll();
+        return accountServer.getAll();
     }
 }
