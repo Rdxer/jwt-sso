@@ -68,7 +68,7 @@ public interface CRUDServiceInterface<T, ID extends Serializable> {
     }
 
     default Page<T> getAllOfPage(int page, int size,Sort sort){
-        Pageable pageable = PageRequest.of(page-1,size,sort);
+        Pageable pageable = PageRequest.of(page,size,sort);
         return getAllOfPage(pageable);
     }
 
