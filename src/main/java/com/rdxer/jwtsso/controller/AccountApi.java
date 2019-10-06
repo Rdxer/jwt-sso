@@ -18,7 +18,6 @@ public class AccountApi {
     @Resource
     AccountServer accountServer;
 
-
     @GetMapping("/")
     Object index() {
         Account show = accountServer.show((long) 1);
@@ -29,7 +28,7 @@ public class AccountApi {
     @GetMapping("/{id}")
     Object index(@PathVariable Long id) {
 
-        return accountServer.getAll();
+        return accountServer.show(id);
     }
 
 }

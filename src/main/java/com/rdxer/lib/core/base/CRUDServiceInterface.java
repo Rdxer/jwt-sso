@@ -2,6 +2,10 @@ package com.rdxer.lib.core.base;
 
 import com.rdxer.lib.core.util.CRUDUtlis;
 import com.rdxer.lib.exception.exceptions.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.validation.constraints.NotNull;
@@ -31,16 +35,59 @@ public interface CRUDServiceInterface<T, ID extends Serializable> {
     }
 
     default T store(T model){
+        modelSetId(null,model);
         return getRepository().saveAndFlush(model);
     }
+
+    ///////////////////   update
 
     T update(ID id,T model);
 
     T updateOfPatch(ID id, T model);
 
+    /////////////////////   list
     default List<T> getAll(){
         return getRepository().findAll();
     }
+
+    default Page<T> getAllOfPage(int page){
+        return getAllOfPage(page, defaultSize());
+    }
+
+    default Page<T> getAllOfPage(int page, int size){
+        return getAllOfPage(page, size, defaultSort());
+    }
+
+    default Page<T> getAllOfPage(int page, int size,String... sort){
+        return getAllOfPage(page, size,defaultDirection(), sort);
+    }
+
+    default Page<T> getAllOfPage(int page, int size,Sort.Direction direction,String... sort){
+        Sort s = new Sort(direction, sort);
+        return getAllOfPage(page, size, s);
+    }
+
+    default Page<T> getAllOfPage(int page, int size,Sort sort){
+        Pageable pageable = PageRequest.of(page-1,size,sort);
+        return getAllOfPage(pageable);
+    }
+
+    default Page<T> getAllOfPage(Pageable pageable){
+        return getRepository().findAll(pageable);
+    }
+
+
+    default int defaultSize(){
+        return 10;
+    }
+    default String[] defaultSort(){
+        return new String[]{"id"};
+    }
+    default Sort.Direction defaultDirection(){
+        return Sort.Direction.DESC;
+    }
+
+    //////////////////////////////////////   id  opertion
 
     default ID modelGetId(T model) {
         return CRUDUtlis.getId(model);

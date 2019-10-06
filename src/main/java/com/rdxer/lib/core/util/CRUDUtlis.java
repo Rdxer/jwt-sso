@@ -20,7 +20,7 @@ public class CRUDUtlis {
         Class<?> aClass = model.getClass();
         Class<? extends Annotation> annotation = Id.class;
 
-        String name = getIdName(model, aClass, annotation);
+        String name = findAnnotationPropName(aClass, annotation);
 
         BeanWrapper wrappedSource = new BeanWrapperImpl(model);
 
@@ -31,28 +31,44 @@ public class CRUDUtlis {
         Class<?> aClass = model.getClass();
         Class<? extends Annotation> annotation = Id.class;
 
-        String name = getIdName(model, aClass, annotation);
+        String name = findAnnotationPropName(aClass, annotation);
 
         BeanWrapper wrappedSource = new BeanWrapperImpl(model);
 
         wrappedSource.setPropertyValue(name,id);
     }
 
+    /**
+     * 查找 javax.persistence.Id 标记的 字段名称
+     * @param aClass
+     * @return
+     */
+    public static String findIdAnnotationPropName(Class<?> aClass){
+        Class<? extends Annotation> annotation = Id.class;
+        String name = findAnnotationPropName(aClass, annotation);
+        return name;
+    }
 
-    private static <T> String getIdName(T model, Class<?> aClass, Class<? extends Annotation> annotation) {
+    /**
+     * 获取有该注解的字段名称
+     * @param aClass
+     * @param annotation
+     * @return
+     */
+    public static String findAnnotationPropName(Class<?> aClass, Class<? extends Annotation> annotation) {
         String name;
 
-        if (nameCache.containsKey(model.getClass())) {
-            return nameCache.get(model.getClass());
+        if (nameCache.containsKey(aClass)) {
+            return nameCache.get(aClass);
         }
 
         Field field = null;
         Method method = null;
 
-        if (fieldCache.containsKey(model.getClass())) {
-            field = fieldCache.get(model.getClass());
-        }else if (methodCache.containsKey(model.getClass())){
-            method = methodCache.get(model.getClass());
+        if (fieldCache.containsKey(aClass)) {
+            field = fieldCache.get(aClass);
+        }else if (methodCache.containsKey(aClass)){
+            method = methodCache.get(aClass);
         }
 
         if (field == null){
