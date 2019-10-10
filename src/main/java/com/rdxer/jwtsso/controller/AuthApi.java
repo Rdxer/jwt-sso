@@ -12,8 +12,5 @@ public class AuthApi {
     @Resource
     AccountServer accountServer;
 
-    @GetMapping("/login")
-    Object login() {
-        return accountServer.getAll();
-    }
+
 }

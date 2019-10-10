@@ -2,6 +2,7 @@ package com.rdxer.lib.core.util;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
 import java.io.Serializable;

@@ -18,20 +18,13 @@ public class AccountServerImpl implements AccountServer {
     AccountRepository repository;
 
     @Override
-    public Long modelGetId(Account model) {
-        return model.getId();
-    }
-
-    @Override
-    public void modelSetId(Long aLong, Account model) {
-        model.setId(aLong);
-    }
-
-    @Override
-    public @NotNull JpaRepository<Account, Long> getRepository() {
+    public @NotNull AccountRepository getRepository() {
         return repository;
     }
 
-
+    @Override
+    public Account findByName(String name){
+        return getRepository().findAccountByUsername(name);
+    }
 
 }

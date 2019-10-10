@@ -7,5 +7,5 @@ import com.rdxer.lib.core.base.CRUDExServiceInterface;
 import java.util.List;
 
 public interface AccountServer extends CRUDExServiceInterface<Account,Long> {
-
+    Account findByName(String name);
 }
