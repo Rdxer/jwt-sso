@@ -1,12 +1,11 @@
 package com.rdxer.jwtsso.model;
 
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 角色表
@@ -20,7 +19,7 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<Account> accounts;
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+    private Set<Account> accounts;
 
 }

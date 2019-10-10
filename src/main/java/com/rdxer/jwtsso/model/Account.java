@@ -2,11 +2,9 @@ package com.rdxer.jwtsso.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -21,10 +19,10 @@ public class Account {
     private String username;
     private String password;
 
-    @ManyToMany
-    private List<Role> roles;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Role> roles;
 
-    @ManyToMany
-    private List<Permission> permissions;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Permission> permissions;
 
 }

@@ -2,11 +2,9 @@ package com.rdxer.jwtsso.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -21,7 +19,7 @@ public class Permission {
 
     private String name;
 
-    @ManyToMany(mappedBy = "permissions")
-    private List<Account> accounts;
+    @ManyToMany(mappedBy = "permissions",fetch = FetchType.LAZY)
+    private Set<Account> accounts;
 
 }
