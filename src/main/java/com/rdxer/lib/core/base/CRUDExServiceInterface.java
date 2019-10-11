@@ -1,6 +1,7 @@
 package com.rdxer.lib.core.base;
 
 import com.rdxer.lib.core.util.Util;
+import com.rdxer.lib.exception.exceptions.BadRequestException;
 import com.rdxer.lib.exception.exceptions.NotAcceptableException;
 import com.rdxer.lib.exception.exceptions.NotFoundException;
 import org.springframework.beans.BeanUtils;
@@ -17,7 +18,7 @@ public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUD
 
     default T update(T model){
         if (modelGetId(model) == null) {
-            throw new NotAcceptableException();
+            throw new BadRequestException();
         }
         return getRepository().save(model);
     }

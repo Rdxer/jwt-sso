@@ -1,6 +1,7 @@
 package com.rdxer.jwtsso.server;
 
 import com.rdxer.jwtsso.model.Account;
+import com.rdxer.jwtsso.model.Permission;
 import com.rdxer.jwtsso.model.Role;
 import com.rdxer.jwtsso.repository.AccountRepository;
 import com.rdxer.lib.exception.exceptions.NotAcceptableException;
@@ -33,6 +34,9 @@ public class AccountServerTest {
     @Resource
     RoleServer roleServer;
 
+    @Resource
+    PermissionServer permissionServer;
+
     @Before
     public void setUp() throws Exception {
 
@@ -44,7 +48,7 @@ public class AccountServerTest {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void initialUser() {
         var account = accountServer.findByName("lxf");
         if (account == null) {
@@ -75,9 +79,11 @@ public class AccountServerTest {
         }
         assertNotNull(role);
 
-
-
-
+        var read_user = permissionServer.findByName("READ_USER");
+        if (read_user == null){
+            read_user = permissionServer.store(Permission.builder().name("READ_USER").build());
+        }
+        assertNotNull(read_user);
     }
 
     @Test

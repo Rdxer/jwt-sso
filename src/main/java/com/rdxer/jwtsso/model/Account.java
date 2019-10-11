@@ -17,6 +17,9 @@ import java.util.Set;
 @Data
 @Builder
 @EqualsAndHashCode(exclude = {"roles"})
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"username"})
+})
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +29,8 @@ public class Account {
 
     @ManyToMany
     private Set<Role> roles;
+    @ManyToMany
+    private Set<Permission> permissions;
 
     @Tolerate
     public Account() {

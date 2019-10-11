@@ -1,13 +1,12 @@
 package com.rdxer.jwtsso.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Tolerate;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,18 +19,19 @@ import java.util.Set;
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"name"})
 })
-public class Role {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "permissions")
     @JsonBackReference
     private Set<Account> accounts;
     @Tolerate
-    public Role() {
+    public Permission() {
     }
 
 }

@@ -1,9 +1,11 @@
 package com.rdxer.jwtsso.controller;
 
+import com.rdxer.jwtsso.model.Account;
 import com.rdxer.jwtsso.model.Role;
 import com.rdxer.jwtsso.model.TestClassModel;
 import com.rdxer.jwtsso.repository.AccountRepository;
 import com.rdxer.jwtsso.server.AccountServer;
+import com.rdxer.jwtsso.server.PermissionServer;
 import com.rdxer.jwtsso.server.RoleServer;
 import com.rdxer.jwtsso.server.TestClassModelServer;
 import com.rdxer.lib.core.util.CRUDUtlis;
@@ -39,25 +41,36 @@ public class TestApi {
     AccountRepository repository;
     @Resource
     RoleServer roleServer;
+    @Resource
+    PermissionServer permissionServer;
 
     @PostMapping("/test3")
     Object test3() {
 
+        // 创建
 
 
+        // 修改
         var lxf = accountServer.findByName("lxf");
 
         var role = roleServer.findByName("USER");
 
         lxf.getRoles().add(role);
 
-        repository.saveAll(Arrays.asList(lxf));
+        accountServer.update(lxf);
 
+        var perms = permissionServer.show(2L);
+        lxf.getPermissions().add(perms);
+
+        accountServer.update(lxf);
+
+        // 读取
         var lxf2 = accountServer.findByName("lxf");
 
         Set<Role> roles = lxf2.getRoles();
 
         roles.forEach(v -> System.out.println(v.getName()));
+        lxf2.getPermissions().forEach(v -> System.out.println(v.getName()));
 
         return "show";
     }
@@ -66,6 +79,17 @@ public class TestApi {
     Object test32() {
         var lxf = accountServer.findByName("lxf");
         return lxf;
+    }
+
+    @PutMapping("/test3")
+    Object test32PutMapping() {
+        var lxf = accountServer.findByName("lxf");
+
+        lxf.getPermissions().removeIf(v -> v.getName().equals("READ_USER"));
+
+        Account update = accountServer.update(lxf);
+
+        return accountServer.findByName("lxf");
     }
 
 }

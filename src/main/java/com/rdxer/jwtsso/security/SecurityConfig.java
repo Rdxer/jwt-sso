@@ -45,8 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                     // 任何  OPTIONS 放行
                 .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
-                .antMatchers(HttpMethod.GET, "/test3").permitAll()
-                .antMatchers(HttpMethod.POST, "/test3").permitAll()
+                .antMatchers("/test3").permitAll()
                     // 注册放行
                 .anyRequest().authenticated()
                     // 任何 请求都需要进行 身份验证
