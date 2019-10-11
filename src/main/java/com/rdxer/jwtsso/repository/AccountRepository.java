@@ -3,6 +3,8 @@ package com.rdxer.jwtsso.repository;
 import com.rdxer.jwtsso.model.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
  * @author lxf
  */

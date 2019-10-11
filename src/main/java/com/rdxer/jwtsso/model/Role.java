@@ -1,6 +1,9 @@
 package com.rdxer.jwtsso.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+import lombok.experimental.Accessors;
+import lombok.experimental.Tolerate;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
@@ -12,14 +15,20 @@ import java.util.Set;
  */
 @Entity
 @Data
+@Builder
+@EqualsAndHashCode(exclude = {"accounts"})
 public class Role {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set<Account> accounts;
+    @Tolerate
+    public Role() {
+    }
 
 }

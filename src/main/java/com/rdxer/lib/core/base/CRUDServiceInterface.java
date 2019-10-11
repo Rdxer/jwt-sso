@@ -41,6 +41,8 @@ public interface CRUDServiceInterface<T, ID extends Serializable> {
 
     ///////////////////   update
 
+    T update(T model);
+
     T update(ID id,T model);
 
     T updateOfPatch(ID id, T model);

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -24,7 +25,7 @@ public class JwtSsoApplicationTests {
 
     @Test
     public void testRoles() {
-        Account lxf = accountServer.findByName("lxf");
+        var lxf = accountServer.findByName("lxf");
         Set<Role> roles = lxf.getRoles();
         System.out.println(roles);
     }

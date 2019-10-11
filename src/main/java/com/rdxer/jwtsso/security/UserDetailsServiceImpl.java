@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountServer.findByName(username);
+        var account = accountServer.findByName(username);
 
         if (account == null){
             throw new UsernameNotFoundException(username);
@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         var roles =  new ArrayList<String>();
 
-        for (Role role : account.getRoles()) {
+        for (Role role : account. getRoles()) {
             roles.add(role.getName());
         }
 
