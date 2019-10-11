@@ -80,11 +80,19 @@ public class AccountServerTest {
         assertNotNull(role);
 
         var read_user = permissionServer.findByName("READ_USER");
-        if (read_user == null){
+        if (read_user == null) {
             read_user = permissionServer.store(Permission.builder().name("READ_USER").build());
         }
         assertNotNull(read_user);
     }
+
+    @Test
+    public void addUser() {
+        var account = accountServer.store(Account.builder().username("lxf100").password("123456").build());
+
+        assertNotNull(account);
+    }
+
 
     @Test
     public void findByName() {
@@ -124,6 +132,6 @@ public class AccountServerTest {
     @Transactional
     public void showInfo() {
         var lxf = accountServer.findByName("lxf");
-        assertTrue("没有 role ",lxf.getRoles().size() > 0);
+        assertTrue("没有 role ", lxf.getRoles().size() > 0);
     }
 }

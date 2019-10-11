@@ -46,13 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     // 任何  OPTIONS 放行
                 .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
                 .antMatchers("/test3").permitAll()
+                .antMatchers("/user/*").hasRole("USER")
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/super_admin/*").hasRole("SUPER_ADMIN")
                     // 注册放行
                 .anyRequest().authenticated()
                     // 任何 请求都需要进行 身份验证
                 ;
 
         http.addFilter(new JWTLoginFilter(authenticationManager()))
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()));
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(),userDetailsService));
 
 
     }

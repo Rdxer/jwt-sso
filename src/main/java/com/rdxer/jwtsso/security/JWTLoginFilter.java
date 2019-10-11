@@ -1,5 +1,7 @@
 package com.rdxer.jwtsso.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rdxer.jwtsso.model.TestClassModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -36,8 +39,11 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
         long time = JWTConfiguration.sessionTime;
 
+
+        User user = (User) auth.getPrincipal();
+
         String token = Jwts.builder()
-                .setSubject(((User) auth.getPrincipal()).getUsername())
+                .setSubject(user.getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + time))
                 .signWith(SignatureAlgorithm.HS512, JWTConfiguration.secret)
                 .compact();
