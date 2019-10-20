@@ -10,12 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,13 +32,15 @@ public class AccountServerTest {
     @Resource
     AccountServer accountServer;
     @Resource
-    AccountRepository repository;
-
-    @Resource
     RoleServer roleServer;
-
     @Resource
     PermissionServer permissionServer;
+    @Resource
+    PasswordEncoder bCryptPasswordEncoder;
+
+
+    @Resource
+    AccountRepository repository;
 
     @Before
     public void setUp() throws Exception {
@@ -133,5 +138,91 @@ public class AccountServerTest {
     public void showInfo() {
         var lxf = accountServer.findByName("lxf");
         assertTrue("没有 role ", lxf.getRoles().size() > 0);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Test
+    @Transactional
+    @Rollback(value = false)
+    public void initialData() {
+        initAccount();
+        initRole();
+        initPerms();
+
+        check();
+
+        setRoleToAccount();
+    }
+
+    private void setRoleToAccount() {
+        Account lxf = accountServer.findByName("lxf");
+        Role byName = roleServer.findByName(Role.NAME.SUPER_ADMIN.name());
+        lxf.getRoles().add(byName);
+        accountServer.update(lxf);
+    }
+
+    private void check() {
+        List<Account> all = accountServer.getAll();
+        assertEquals(2, all.size());
+        var roles = roleServer.getAll();
+        assertEquals(3, roles.size());
+        List<Permission> permissionServerAll = permissionServer.getAll();
+        assertEquals(3,permissionServerAll.size());
+    }
+
+    private void initPerms() {
+        Permission permission = Permission.builder().name(Permission.NAME.USER_ALL.name()).build();
+        permissionServer.store(permission);
+
+        permission = Permission.builder().name(Permission.NAME.USER_READ.name()).build();
+        permissionServer.store(permission);
+
+        permission = Permission.builder().name(Permission.NAME.USER_WRITER.name()).build();
+        permissionServer.store(permission);
+
+    }
+
+    private void initRole() {
+        Role role = Role.builder().name(Role.NAME.SUPER_ADMIN.name()).build();
+        roleServer.store(role);
+
+        role = Role.builder().name(Role.NAME.ADMIN.name()).build();
+        roleServer.store(role);
+
+        role = Role.builder().name(Role.NAME.USER.name()).build();
+        roleServer.store(role);
+    }
+
+    private void initAccount() {
+        Account account = Account.builder()
+                .username("lxf1")
+                .password(bCryptPasswordEncoder.encode("123456"))
+                .build();
+        account = accountServer.store(account);
+
+
+        account = Account.builder()
+                .username("lxf2")
+                .password(bCryptPasswordEncoder.encode("123456"))
+                .build();
+
+        account = accountServer.store(account);
+
     }
 }

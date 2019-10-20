@@ -24,7 +24,7 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(length = 100)
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
@@ -34,4 +34,9 @@ public class Permission {
     public Permission() {
     }
 
+    public enum NAME{
+        USER_ALL,
+        USER_READ,
+        USER_WRITER
+    }
 }
