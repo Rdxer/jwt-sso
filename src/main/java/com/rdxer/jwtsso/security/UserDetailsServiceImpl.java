@@ -24,9 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource
     AccountServer accountServer;
 
-    @Resource
-    PasswordEncoder passwordEncoder;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

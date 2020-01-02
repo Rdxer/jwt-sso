@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface AccountServer extends CRUDExServiceInterface<Account,Long> {
     Account findByName(String name);
+
+    Account register(Account model);
 }

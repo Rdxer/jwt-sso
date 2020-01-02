@@ -2,8 +2,10 @@ package com.rdxer.jwtsso;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 @ComponentScan({"com.rdxer.jwtsso","com.rdxer.lib"})
@@ -14,5 +16,8 @@ public class JwtSsoApplication {
         SpringApplication.run(JwtSsoApplication.class, args);
 
     }
-
+    @Bean
+    BCryptPasswordEncoder cryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 }

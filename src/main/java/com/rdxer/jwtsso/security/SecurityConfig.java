@@ -23,12 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     PasswordEncoder bCryptPasswordEncoder;
 
-
-    @Bean
-    BCryptPasswordEncoder cryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
