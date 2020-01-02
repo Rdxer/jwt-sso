@@ -57,12 +57,12 @@ public class AccountServerTest {
     public void initialUser() {
         var account = accountServer.findByName("lxf");
         if (account == null) {
-            account = accountServer.store(Account.builder().username("lxf").password("123456").build());
+            account = accountServer.register(Account.builder().username("lxf").password("123456").build());
         }
         assertNotNull(account);
         account = accountServer.findByName("lxf2");
         if (account == null) {
-            account = accountServer.store(Account.builder().username("lxf2").password("123456789").build());
+            account = accountServer.register(Account.builder().username("lxf2").password("123456789").build());
         }
         assertNotNull(account);
 
