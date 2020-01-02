@@ -1,6 +1,7 @@
 package com.rdxer.jwtsso.controller;
 
 import com.rdxer.jwtsso.model.Account;
+import com.rdxer.jwtsso.model.Permission;
 import com.rdxer.jwtsso.model.Role;
 import com.rdxer.jwtsso.model.TestClassModel;
 import com.rdxer.jwtsso.repository.AccountRepository;
@@ -70,7 +71,7 @@ public class TestApi {
         accountServer.update(lxf);
 
         // 读取
-        var lxf2 = accountServer.findByName("lxf");
+        var lxf2 = accountServer.findByName("lxf1");
 
         Set<Role> roles = lxf2.getRoles();
 
@@ -82,20 +83,10 @@ public class TestApi {
 
     @GetMapping("/test3")
     Object test32() {
-        var lxf = accountServer.findByName("lxf");
+        var lxf = accountServer.findByName("lxf1");
         return lxf;
     }
 
-//    @PutMapping("/test3")
-//    Object test32PutMapping() {
-//        var lxf = accountServer.findByName("lxf1");
-//
-//        lxf.getPermissions().removeIf(v -> v.getName().equals("READ_USER"));
-//
-//        Account update = accountServer.update(lxf);
-//
-//        return accountServer.findByName("lxf");
-//    }
     @PutMapping("/test3")
     Object test32PutMapping() {
         var lxf = accountServer.findByName("lxf2");
@@ -108,6 +99,45 @@ public class TestApi {
 
         return accountServer.findByName("lxf2");
     }
+
+    @DeleteMapping("/test3")
+    Object test323PutMapping() {
+        var lxf = accountServer.findByName("lxf2");
+
+        Role super_admin = roleServer.findByName("SUPER_ADMIN");
+
+        lxf.getRoles().remove(super_admin);
+
+        lxf.setPhone(Math.random()+"");
+
+        Account update = accountServer.update(lxf);
+
+        return accountServer.findByName("lxf2");
+    }
+
+    @PutMapping("/test4")
+    Object test42PutMapping() {
+        var lxf = accountServer.findByName("lxf2");
+
+        Permission byName = permissionServer.findByName(Permission.NAME.USER_ALL.name());
+
+        lxf.getPermissions().add(byName);
+
+        Account update = accountServer.update(lxf);
+
+        return accountServer.findByName("lxf2");
+    }
+
+
+    @PostMapping("/adduser")
+    Object adduser() {
+        Account acc = Account.builder().username("lxf111").password("123").build();
+        accountServer.store(acc);
+        return acc;
+    }
+
+
+
 
 
 

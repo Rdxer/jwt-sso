@@ -25,6 +25,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100)
     private String name;
 
     @ManyToMany(mappedBy = "roles")
@@ -34,4 +35,11 @@ public class Role {
     public Role() {
     }
 
+
+    public enum NAME{
+        SUPER_ADMIN,
+        ADMIN,
+        USER
+    }
 }
+
