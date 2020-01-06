@@ -16,6 +16,7 @@ import java.util.Optional;
  */
 public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUDServiceInterface<T, ID>  {
 
+    @Override
     default T update(T model){
         if (modelGetId(model) == null) {
             throw new BadRequestException();
@@ -23,6 +24,7 @@ public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUD
         return getRepository().save(model);
     }
 
+    @Override
     default T update(ID id, T model){
         if (modelGetId(model) != null && modelGetId(model) != id) {
             throw new NotAcceptableException();
@@ -31,6 +33,7 @@ public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUD
         return getRepository().save(model);
     }
 
+    @Override
     default T updateOfPatch(ID id, T model){
 
         if (modelGetId(model) != null && modelGetId(model) != id) {

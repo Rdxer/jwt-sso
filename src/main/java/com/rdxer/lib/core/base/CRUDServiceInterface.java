@@ -39,6 +39,10 @@ public interface CRUDServiceInterface<T, ID extends Serializable> {
         return getRepository().saveAndFlush(model);
     }
 
+    default boolean existsById(ID id){
+        return getRepository().existsById(id);
+    }
+
     ///////////////////   update
 
     T update(T model);

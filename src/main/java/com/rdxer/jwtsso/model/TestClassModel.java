@@ -1,40 +1,32 @@
 package com.rdxer.jwtsso.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@SQLDelete(sql = "update test_class_model set delete_at = now() where id = ?")
+@Where(clause = "delete_at is null")
+@Table(name = "test_class_model")
+@Getter
+@Setter
 public class TestClassModel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
+    // 如果不为空  则已经删除
+    LocalDateTime deleteAt;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
