@@ -41,12 +41,12 @@ public class TestClassModelServerImplTest {
 
     @Test
     public void show() {
-        assertTrue(testClassModelServer.show(3L) != null);
+        assertTrue(testClassModelServer.show(4L) != null);
     }
 
     @Test
     public void destroy() {
-        testClassModelServer.destroy(3L);
-        assertTrue(testClassModelServer.existsById(3L) == false);
+        testClassModelServer.destroy(4L);
+        assertTrue(testClassModelServer.existsById(4L) == false);
     }
 }
