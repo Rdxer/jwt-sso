@@ -18,9 +18,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rdxer</groupId>
-    <artifactId>jwt-sso</artifactId>
+    <artifactId>rdxer_public_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jwt-sso</name>
+    <name>rdxer_public_server</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
