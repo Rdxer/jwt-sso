@@ -51,6 +51,11 @@ public interface CRUDServiceInterface<T, ID extends Serializable> {
 
     T updateOfPatch(ID id, T model);
 
+    default T update_exec(T model){
+        T save = getRepository().save(model);
+        return save;
+    }
+
     /////////////////////   list
     default List<T> getAll(){
         return getRepository().findAll();

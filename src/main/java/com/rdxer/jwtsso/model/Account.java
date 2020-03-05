@@ -59,6 +59,8 @@ public class Account {
     @ManyToMany
     private Set<Permission> permissions;
 
+    private Boolean disabled;
+
     @Tolerate
     public Account() {
 

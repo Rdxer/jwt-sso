@@ -41,9 +41,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             roles.add(role.getName());
         }
 
+        boolean disabled = account.getDisabled() == null ? false : account.getDisabled();
+
         userBuilder
                 .username(account.getUsername())
 //                .password(passwordEncoder.encode(account.getPassword()))
+                .disabled(disabled)
                 .password(account.getPassword())
                 .roles(roles.toArray(new String[]{}));
 

@@ -21,7 +21,7 @@ public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUD
         if (modelGetId(model) == null) {
             throw new BadRequestException();
         }
-        return getRepository().save(model);
+        return update_exec(model);
     }
 
     @Override
@@ -30,7 +30,7 @@ public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUD
             throw new NotAcceptableException();
         }
         modelSetId(id,model);
-        return getRepository().save(model);
+        return update_exec(model);
     }
 
     @Override
@@ -51,6 +51,6 @@ public interface CRUDExServiceInterface<T, ID extends Serializable> extends CRUD
         String[] nullPropertyNames = Util.getNullPropertyNames(model);
         BeanUtils.copyProperties(model,r.get(), nullPropertyNames);
 
-        return getRepository().save(r.get());
+        return update_exec(r.get());
     }
 }

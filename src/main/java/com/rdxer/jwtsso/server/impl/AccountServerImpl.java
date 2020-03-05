@@ -35,4 +35,10 @@ public class AccountServerImpl implements AccountServer {
         return store(model);
     }
 
+    @Override
+    public Account update_exec(Account model) {
+//        model.setDisabled(true);
+        var save = getRepository().save(model);
+        return save;
+    }
 }
