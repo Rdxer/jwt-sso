@@ -20,7 +20,7 @@ public class AccountApi {
 
     @GetMapping("/")
     Object index() {
-        Account show = accountServer.show((long) 1);
+//        Account show = accountServer.show((long) 1);
 
         return accountServer.getAll();
     }
