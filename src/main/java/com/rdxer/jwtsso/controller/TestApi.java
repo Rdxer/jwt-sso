@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -82,13 +81,13 @@ public class TestApi {
     }
 
     @GetMapping("/test3")
-    Object test32() {
+    Account test32() {
         var lxf = accountServer.findByName("lxf1");
         return lxf;
     }
 
     @PutMapping("/test3")
-    Object test32PutMapping() {
+    Account test32PutMapping() {
         var lxf = accountServer.findByName("lxf2");
 
         Role super_admin = roleServer.findByName("SUPER_ADMIN");
@@ -101,7 +100,7 @@ public class TestApi {
     }
 
     @DeleteMapping("/test3")
-    Object test323PutMapping() {
+    Account test323PutMapping() {
         var lxf = accountServer.findByName("lxf2");
 
         Role super_admin = roleServer.findByName("SUPER_ADMIN");
@@ -116,7 +115,7 @@ public class TestApi {
     }
 
     @PutMapping("/test4")
-    Object test42PutMapping() {
+    Account test42PutMapping() {
         var lxf = accountServer.findByName("lxf2");
 
         Permission byName = permissionServer.findByName(Permission.NAME.USER_ALL.name());
@@ -130,7 +129,7 @@ public class TestApi {
 
 
     @PostMapping("/adduser")
-    Object adduser() {
+    Account adduser() {
         Account acc = Account.builder().username("lxf111").password("123").build();
         accountServer.store(acc);
         return acc;

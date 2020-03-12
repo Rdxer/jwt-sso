@@ -11,7 +11,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
@@ -28,12 +27,12 @@ public class SwaggerConfig {
 
     private ApiInfo productApiInfo() {
         ApiInfo apiInfo = new ApiInfo("数据接口文档",
-                "desc",
+                "http://127.0.0.1:8080/v2/api-docs",
                 "1.0.0",
-                "API TERMS URL",
+                "http://127.0.0.1:8080/docs.html",
                 "联系人邮箱",
-                "license",
-                "license url");
+                "api-docs",
+                "http://127.0.0.1:8080/swagger-ui.html");
         return apiInfo;
     }
 }
