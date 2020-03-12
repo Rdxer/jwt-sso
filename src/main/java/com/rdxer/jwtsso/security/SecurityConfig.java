@@ -43,7 +43,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/*").hasRole("USER")
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .antMatchers("/super_admin/*").hasRole("SUPER_ADMIN")
-                    // 注册放行
+
+
+                // swagger start
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/docs.html").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/configuration/ui").permitAll()
+                .antMatchers("/configuration/security").permitAll()
+                // swagger end
+
+
                 .anyRequest().authenticated()
                     // 任何 请求都需要进行 身份验证
                 ;
