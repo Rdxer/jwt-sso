@@ -18,10 +18,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rdxer</groupId>
-    <artifactId>rdxer_public_server</artifactId>
+    <artifactId>server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rdxer_public_server</name>
-    <description>Demo project for Spring Boot</description>
+    <name>server</name>
+    <description>server</description>
 
     <properties>
         <java.version>11</java.version>
